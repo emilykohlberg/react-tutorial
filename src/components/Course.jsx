@@ -7,7 +7,7 @@ const Course = ({course}) => (
         <h5 className="card-title">{course.term} CS{course.number}</h5>
         <p className="card-text">{course.title}</p>
       </div>
-      <div class="card-footer">
+      <div className="card-footer">
         <p className="card-text">{course.meets}</p>
       </div>
       
