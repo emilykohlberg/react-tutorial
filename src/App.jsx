@@ -2,6 +2,7 @@ import { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import CourseList from './components/CourseList';
+import CoursePage from './components/CoursePage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +17,7 @@ const Main = () => {
 
   return <div>
           <h1>{data.title}</h1>
-          <CourseList courses={data.courses}></CourseList>
+          <CoursePage courses={data.courses}></CoursePage>
         </div>
 
 }
