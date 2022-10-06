@@ -1,11 +1,14 @@
 import React from 'react';
 import Course from './Course';
 import './CourseList.css';
+import CoursePage from './CoursePage';
 
-const CourseList = ({courses}) => (
+const CourseList = ({courses}) => {
+  return (
     <div className="course-list">
-      { Object.entries(courses).map(([id, course]) => <Course course={course} key={id} />) }
+      { courses.map(([id, course]) => <Course course={course} key={id} />) }
     </div>
   );
+};
   
   export default CourseList;

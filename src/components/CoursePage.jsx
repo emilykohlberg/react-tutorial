@@ -1,12 +1,13 @@
 import { useState } from "react";
 import CourseList from "./CourseList";
+import './CoursePage.css';
 
 const terms = 
     ["Fall", "Winter", "Spring"]
 ;
 
 const TermButton = ({term, selection, setSelection}) => (
-  <div>
+  <div id='termbutton'>
     <input type="radio" id={term} className="btn-check" checked={term === selection} autoComplete="off"
       onChange={() => setSelection(term)} />
     <label className="btn btn-success mb-1 p-2" htmlFor={term}>
@@ -23,21 +24,28 @@ const TermSelector = ({terms, selection, setSelection}) => (
   </div>
 );
 
-const TermCourses = ({selection, courses}) => (
-  <div className="card" >
-  <CourseList courses={Object.entries(courses)
-                              .filter(([id, course]) => course.term == selection)
-                              .map(([id,course]) => ({[id]:course}))}></CourseList>
-  </div>
-);
+const TermCourses = ({selection, courses}) => {
+  if(selection === terms){
+    return (
+      <div className="card" >
+        <CourseList courses={Object.entries(courses)}></CourseList>
+      </div>
+    );
+  }
+  else{
+    return (
+      <div className="card" >
+      <CourseList courses={Object.entries(courses)
+                            .filter(([id, course]) => course.term === selection)}></CourseList>
+    </div>
+    );
+  }
+};
 
 const CoursePage = ({courses}) => {
   const [selection, setSelection] = useState(() => terms);
-  console.log(courses);
+  // console.log(Object.entries(courses).map(([id, course]) => course.term));
   console.log("selection", selection)
-  console.log(Object.entries(courses)
-    .filter(([id, course]) => course.term == selection)
-    .map(([id,course]) => ({[id]:course})))
   return (
     <div>
       <TermSelector terms={terms} selection={selection} setSelection={setSelection} />
