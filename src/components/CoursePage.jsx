@@ -24,11 +24,13 @@ const TermSelector = ({terms, selection, setSelection}) => (
   </div>
 );
 
-const TermCourses = ({selection, courses}) => {
+const TermCourses = ({selection, courses, selected, toggleSelected}) => {
   if(selection === terms){
     return (
       <div className="card" >
-        <CourseList courses={Object.entries(courses)}></CourseList>
+        <CourseList courses={Object.entries(courses)} 
+                    selected={selected} 
+                    toggleSelected={toggleSelected}></CourseList>
       </div>
     );
   }
@@ -36,7 +38,9 @@ const TermCourses = ({selection, courses}) => {
     return (
       <div className="card" >
       <CourseList courses={Object.entries(courses)
-                            .filter(([id, course]) => course.term === selection)}></CourseList>
+                            .filter(([id, course]) => course.term === selection)}
+                            selected={selected} 
+                            toggleSelected={toggleSelected}></CourseList>
     </div>
     );
   }
@@ -44,12 +48,21 @@ const TermCourses = ({selection, courses}) => {
 
 const CoursePage = ({courses}) => {
   const [selection, setSelection] = useState(() => terms);
-  // console.log(Object.entries(courses).map(([id, course]) => course.term));
-  console.log("selection", selection)
+  const [selected, setSelected] = useState([]);
+
+  const toggleSelected = (item) => setSelected(
+    selected.includes(item)
+    ? selected.filter(x => x !== item)
+    : [...selected, item]
+  );
+
   return (
     <div>
       <TermSelector terms={terms} selection={selection} setSelection={setSelection} />
-      <TermCourses selection={selection} courses={courses} />
+      <TermCourses selection={selection} 
+                    courses={courses} 
+                    selected = {selected}
+                    toggleSelected={toggleSelected} />
     </div>
   );
 }
