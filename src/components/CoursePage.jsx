@@ -4,7 +4,6 @@ import Modal from './Modal';
 import Cart from './Cart'
 import './CoursePage.css';
 
-
 const terms = 
     ["Fall", "Winter", "Spring"]
 ;
@@ -58,10 +57,11 @@ const CoursePage = ({courses}) => {
   
   const closeModal = () => setOpen(false);
 
-  const toggleSelected = (item) => setSelected(
-    selected.includes(item)
-    ? selected.filter(x => x !== item)
-    : [...selected, item]
+  const toggleSelected = ([id, course]) => setSelected(
+    selected.some(([myId, myCourse]) => 
+        myId === id && myCourse === course) 
+        ? selected.filter(([myId, myCourse]) => myId != id)
+        : [...selected, [id, course]]
   );
 
   return (
@@ -72,7 +72,7 @@ const CoursePage = ({courses}) => {
       </nav>
       <Modal open={open} close={closeModal}>
           <Cart selected={Object.entries(courses)
-                            .filter(([id, course]) => selected.includes(id))} />
+                            .filter(([id, course]) => selected.includes([id, course]))} />
       </Modal>
       <TermCourses selection={selection} 
                     courses={courses} 

@@ -2,9 +2,11 @@
     width: 100%;
     height: 15vw;
     object-fit: cover;
-  }
-
+}
 #selected {
     background-color:lemonchiffon;
     color: green;
-  }
+}
+#conflict{
+  background-color:lightgrey;
+}
