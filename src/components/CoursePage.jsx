@@ -1,6 +1,9 @@
 import { useState } from "react";
 import CourseList from "./CourseList";
+import Modal from './Modal';
+import Cart from './Cart'
 import './CoursePage.css';
+
 
 const terms = 
     ["Fall", "Winter", "Spring"]
@@ -27,7 +30,7 @@ const TermSelector = ({terms, selection, setSelection}) => (
 const TermCourses = ({selection, courses, selected, toggleSelected}) => {
   if(selection === terms){
     return (
-      <div className="card" >
+      <div id="classCards" className="card" >
         <CourseList courses={Object.entries(courses)} 
                     selected={selected} 
                     toggleSelected={toggleSelected}></CourseList>
@@ -49,6 +52,11 @@ const TermCourses = ({selection, courses, selected, toggleSelected}) => {
 const CoursePage = ({courses}) => {
   const [selection, setSelection] = useState(() => terms);
   const [selected, setSelected] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => setOpen(true);
+  
+  const closeModal = () => setOpen(false);
 
   const toggleSelected = (item) => setSelected(
     selected.includes(item)
@@ -57,13 +65,20 @@ const CoursePage = ({courses}) => {
   );
 
   return (
-    <div>
-      <TermSelector terms={terms} selection={selection} setSelection={setSelection} />
+    <>
+      <nav className="d-flex">
+        <TermSelector terms={terms} selection={selection} setSelection={setSelection} />
+        <button onClick={openModal} className="btn btn-outline-dark">View Schedule</button>
+      </nav>
+      <Modal open={open} close={closeModal}>
+          <Cart selected={Object.entries(courses)
+                            .filter(([id, course]) => selected.includes(id))} />
+      </Modal>
       <TermCourses selection={selection} 
                     courses={courses} 
-                    selected = {selected}
+                    selected={selected}
                     toggleSelected={toggleSelected} />
-    </div>
+    </>
   );
 }
 
