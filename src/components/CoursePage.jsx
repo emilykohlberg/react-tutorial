@@ -72,7 +72,9 @@ const CoursePage = ({courses}) => {
       </nav>
       <Modal open={open} close={closeModal}>
           <Cart selected={Object.entries(courses)
-                            .filter(([id, course]) => selected.includes([id, course]))} />
+                            .filter(([id, course]) => 
+                            (selected.some(([myId, myCourse]) => 
+                            myId === id && myCourse === course)))} />
       </Modal>
       <TermCourses selection={selection} 
                     courses={courses} 
