@@ -6,7 +6,8 @@ const validateUserData = (key, val) => {
     case 'title':
       return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
     case 'meets':
-      return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
+      return /[M|Tu|W|Th|F]\s(?:\d{1}|\d{2})[:]\d{2}[-](?:\d{1}|\d{2})[:]\d{2}/.test(val) ? '' 
+      : 'must be a legal meeting time with one or more days and a non-empty timespan';
     default: return '';
   }
 };
