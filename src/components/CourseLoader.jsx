@@ -1,5 +1,19 @@
 import Dispatcher from "./Dispatcher";
 import { useDbData } from "../utilities/firebase";
+import { signInWithGoogle, signOut, useAuthState } from '../utilities/firebase';
+
+const SignInButton = () => (
+  <button className="ms-auto btn btn-dark" onClick={signInWithGoogle}>Sign in</button>
+);
+
+const SignOutButton = () => (
+  <button className="ms-auto btn btn-dark" onClick={signOut}>Sign out</button>
+);
+
+const AuthButton = () => {
+  const [user] = useAuthState();
+  return user ? <SignOutButton /> : <SignInButton />;
+};
 
 const AppData = () => {
   const [data, error] = useDbData('/');
@@ -10,7 +24,10 @@ const AppData = () => {
 
   return (
     <div>
-      <h1>{data.title}</h1>
+      <nav className="d-flex">
+        <h1>{data.title}</h1>
+        <AuthButton />
+      </nav>
       <Dispatcher courses={data.courses} />
     </div>
   )
