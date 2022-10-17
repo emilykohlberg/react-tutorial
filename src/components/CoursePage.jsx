@@ -26,13 +26,14 @@ const TermSelector = ({terms, selection, setSelection}) => (
   </div>
 );
 
-const TermCourses = ({selection, courses, selected, toggleSelected}) => {
+const TermCourses = ({selection, courses, selected, toggleSelected, profile}) => {
   if(selection === terms){
     return (
       <div id="classCards" className="card" >
         <CourseList courses={Object.entries(courses)} 
                     selected={selected} 
-                    toggleSelected={toggleSelected}></CourseList>
+                    toggleSelected={toggleSelected}
+                    profile={profile}></CourseList>
       </div>
     );
   }
@@ -48,7 +49,7 @@ const TermCourses = ({selection, courses, selected, toggleSelected}) => {
   }
 };
 
-const CoursePage = ({courses}) => {
+const CoursePage = ({courses, profile}) => {
   const [selection, setSelection] = useState(() => terms);
   const [selected, setSelected] = useState([]);
   const [open, setOpen] = useState(false);
@@ -79,7 +80,8 @@ const CoursePage = ({courses}) => {
       <TermCourses selection={selection} 
                     courses={courses} 
                     selected={selected}
-                    toggleSelected={toggleSelected} />
+                    toggleSelected={toggleSelected} 
+                    profile={profile}/>
     </>
   );
 }

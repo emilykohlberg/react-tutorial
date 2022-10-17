@@ -3,7 +3,7 @@ import './Course.css';
 import { hasConflict } from '../utilities/course';
 import { Link } from 'react-router-dom';
 
-const Course = ({id, course, selected, toggleSelected}) => {
+const Course = ({id, course, selected, toggleSelected, profile}) => {
   const conflict = hasConflict(course, selected);
   const isSelected = selected.some(([myId, myCourse]) => 
                 myId === id && myCourse === course);
@@ -29,8 +29,9 @@ const Course = ({id, course, selected, toggleSelected}) => {
       </div>
       <div className="card-footer">
         <p className="card-text">{course.meets}</p>
-        <p><Link to={`/${id}`}>Edit Course</Link></p>
-
+        { profile?.isAdmin &&
+          <p><Link to={`/${id}`}>Edit Course</Link></p>
+        }     
       </div>
       
     </div>
