@@ -21,6 +21,7 @@ const Course = ({id, course, selected, toggleSelected, profile}) => {
 
   return (
     <div className="card m-1 p-2" 
+      data-cy="course"
       id={idAttribute}
       onClick={conflict ? () => void 0 : () => toggleSelected([id, course])}>
       <div className="card-body">
