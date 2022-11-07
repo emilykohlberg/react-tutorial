@@ -2,6 +2,8 @@
   "name": "vite-template-react",
   "version": "1.2.0",
   "scripts": {
+    "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
+    "em:exec": "firebase emulators:exec --import=./saved-data 'npm start'",
     "cy:open": "cypress open",
     "start": "vite",
     "dev": "vite",
