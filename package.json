@@ -2,9 +2,11 @@
   "name": "vite-template-react",
   "version": "1.2.0",
   "scripts": {
-    "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
-    "em:exec": "firebase emulators:exec --import=./saved-data 'npm start'",
+    "em:start": "firebase emulators:start --only database,auth --import=./saved-data --export-on-exit",
+    "em:exec": "VITE_EMULATE=true firebase emulators:exec --only database,auth --import=./saved-data 'npm start'",
+    "em:execui": "firebase emulators:exec --only database,auth --ui --import=./saved-data 'npm start'",
     "cy:open": "cypress open",
+    "em:cy:open": "start-server-and-test em:exec http://127.0.0.1:3000 cy:open",
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
@@ -25,6 +27,7 @@
     "@vitejs/plugin-react": "^2.0.0",
     "cypress": "^10.11.0",
     "jsdom": "^20.0.0",
+    "start-server-and-test": "^1.14.0",
     "vite": "^3.0.3",
     "vitest": "^0.19.1"
   }
